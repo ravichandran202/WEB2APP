@@ -82,7 +82,7 @@ def profile(request):
     return render(request, 'profile.html', {
         'apps': AppDetails.objects.filter(user=request.user),
         'total_uploads' : AppDetails.objects.filter(user=request.user,is_upload = True),
-        'total_likes' : AppDetails.objects.filter(user=request.user),
+        'likes' : Likes
     })
 
 
@@ -119,7 +119,9 @@ def app_store(request):
 
 
 def app_page(request, id):
-    return render(request, 'app-page.html')
+    return render(request, 'app-page.html',{
+        'app' : AppDetails.objects.get(id=id)
+    })
 
 
 def download(request, id):

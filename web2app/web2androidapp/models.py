@@ -11,8 +11,10 @@ class AppDetails(BasicInfo):
     user =  models.ForeignKey(User,on_delete=models.CASCADE)
     app_image = models.ImageField(upload_to='appimages',blank=True,null=True)
     app_name = models.CharField(max_length=20)
+    about = models.CharField(max_length=10000,blank=True,null=True)
     url = models.URLField()
     is_upload = models.BooleanField(default=False)
+    total_downloads = models.IntegerField(default=0)
     def __str__(self):
         return str(self.app_name)
     

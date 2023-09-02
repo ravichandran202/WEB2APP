@@ -122,7 +122,7 @@
                         <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
                             <img src="{{app.app_image.url}}" alt="{{app.app_name}}" width="100%">
                             <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
-                            <p class="small mb-0">Likes : 000</p>
+                            <p class="small mb-0">Likes : {{likes__app|length}}</p>
                             <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
                         </div>
                     </div>

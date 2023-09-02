@@ -6,7 +6,6 @@
 
 {% block style_content %}
 <style>
-    
     @media screen and (max-width:700px) {
         body {
             font-size: 12px;
@@ -32,11 +31,10 @@
     <div class="row pt-5">
         <div class="col-md-8 col-12">
             <div class="d-md-flex justify-content-evenly align-items-center text-md-start text-center">
-                <img src="https://lh3.googleusercontent.com/PSYdhdChBliEMA3qTecfYZKKCWD2i85mcxFf0C3IIHuzSXZr9JAdxyQtCaDETv8F1fHYZJsf9GUgh82cCyjEIt3M92g=w128-h128-e365-rj-sc0x00ffffff"
-                    alt="">
-                <div class="app-info ps-md-2 p-0">
-                    <h3>Selectext - Copy Text from VideosAPP TITLE</h3>
-                    <a href="#" class="text-decoration-none">@ravichandran202</a>
+                <img src="{{app.app_image.url}}" alt="" width="150px" class="rounded" style="border: 5px solid black;">
+                <div class="app-info ps-md-2 p-0 w-md-50">
+                    <h3>{{app.app_name}}</h3>
+                    <a href="#" class="text-decoration-none">@{{app.user}}</a>
                     <div class="app-rating">
                         <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
                         <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
@@ -44,12 +42,27 @@
                         <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
                         <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
                     </div>
-                    <p class="mt-1"><strong>Downloads :</strong> 150</p>
+                    <p class="mt-1"><strong>Downloads :</strong> {{app.total_downloads}}</p>
                 </div>
             </div>
         </div>
+        {% if app.user == request.user %}
+            {% if app.is_upload %}
+                <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
+                    <a href="" class="btn btn-dark px-5">DELETE</a>
+                </div>
+            {% else %}
+                <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
+                    <div>
+                        <a href="" class="btn btn-dark px-5">DELETE</a>
+                        <a href="" class="btn btn-outline-dark px-5">UPLOAD</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
         <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center"><a href=""
                 class="btn btn-dark px-5">DOWNLOAD</a></div>
+        {% endif %}
     </div>
     <p class="pt-5 text-uppercase fw-bold">About</p>
     <hr>
