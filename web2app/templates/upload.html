@@ -21,6 +21,7 @@
         margin-bottom: 2rem;
     }
 
+
     input {
         margin-bottom: .5rem;
     }
@@ -47,16 +48,28 @@
                 <h2 class="fw-bolder">WEBSITE TO ANDROID APP</h2>
                 <p>Convert your WEB to ANDROID APP with incredible accuracy</p><br>
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61120.png" alt="upload-icon" id="output-img">
-                <form action="#" method="post" class=" text-start">
-                    <label for="img-field" class="form-label fw-bold">App Icon :</label>
-                    <input type="file" name="img-field" id="img-field" class="form-control" onchange="loadFile(event)">
+                <form action="" method="post" class=" text-start">
+                    {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="p-0 ps-1 m-0">
+                            {% for message in messages %}
+                            <li class="m-0 p-0">{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% csrf_token %}
                     <label for="title-field" class="form-label fw-bold">App Title :</label>
-                    <input type="url" class="form-control p-2" name="title-field" id="title-field"
-                        placeholder="www.xyz.com">
+                    <input type="text" class="form-control p-2" name="title-field" id="title-field"
+                        placeholder="Web2App" required>
                     <label for="url-field" class="form-label fw-bold">Website URL :</label>
-                    <input type="url" class="form-control p-2" name="url-field" id="url-field"
-                        placeholder="www.xyz.com">
-                    <button type="submit" class="btn btn-dark py-md-3 w-100">Convert To App</button>
+                    <input type="url" class="form-control p-2" name="url-field" id="url-field" placeholder="www.xyz.com"
+                        required>
+                    <label for="img-field" class="form-label fw-bold">App Icon :</label>
+                    <input type="file" name="image" id="img-field" class="form-control" onchange="loadFile(event)"
+                        >
+                    <button type="submit" class="btn btn-dark py-md-3 w-100" onclick="loader()">Convert To App<span
+                            id="loader"></span></button>
                 </form>
             </div>
         </div>
@@ -68,6 +81,24 @@
         output.src = URL.createObjectURL(event.target.files[0])
         output.onload = () => {
             URL.revokeObjectURL(output.src)
+        }
+    }
+
+    function loader() {
+        loadEl = document.getElementById('loader')
+
+        inputEl = document.querySelectorAll('input')
+
+        for (var i = 1; i < inputEl.length; i++) {
+            if (inputEl[i].value != "") {
+                setInterval(() => {
+                    if (loadEl.innerText == '......')
+                        loadEl.innerText = ""
+                    else {
+                        loadEl.innerText += "."
+                    }
+                }, 500)
+            }
         }
     }
 </script>
