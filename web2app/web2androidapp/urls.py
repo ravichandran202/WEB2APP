@@ -10,4 +10,6 @@ urlpatterns = [
     path("profile",views.profile,name='profile'),
     path("upload",views.upload,name='upload'),
     path("download/<int:id>",views.download,name='download'),
+    path("apppage/<int:id>",views.app_page,name='apppage'),
+    path("appstore",views.app_store,name='appstore'),
 ]

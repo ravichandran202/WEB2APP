@@ -9,7 +9,7 @@ from pathlib import Path
 import shutil
 import os
 
-from .models import AppDetails
+from .models import AppDetails,Likes,Comments,Reviews
 from .forms import AppDetailsForm
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,9 +79,12 @@ def logout(request):
 
 
 def profile(request):
-    return render(request, 'profile.html',{
-        'user_apps':AppDetails.objects.filter(user=request.user)
+    return render(request, 'profile.html', {
+        'apps': AppDetails.objects.filter(user=request.user),
+        'total_uploads' : AppDetails.objects.filter(user=request.user,is_upload = True),
+        'total_likes' : AppDetails.objects.filter(user=request.user),
     })
+
 
 def upload(request):
     if request.method == 'POST':
@@ -91,12 +94,13 @@ def upload(request):
         if AppDetails.objects.filter(app_name=app_title).exists():
             messages.error(request, "App name Already Exists")
             return redirect('upload')
-        AppDetails(user=request.user, app_name=app_title, url=url,app_image = image).save()
+        AppDetails(user=request.user, app_name=app_title,
+                   url=url, app_image=image).save()
         web2app_converter(app_title, url)
-        
+
         all_apps = AppDetails.objects.all()
         created_app = all_apps[len(all_apps)-1]
-        return redirect('download',created_app.id)
+        return redirect('download', created_app.id)
     return render(request, 'upload.html')
 
 # def upload(request):
@@ -110,7 +114,15 @@ def upload(request):
 #     })
 
 
-def download(request,id):
+def app_store(request):
+    return render(request, 'appstore.html')
+
+
+def app_page(request, id):
+    return render(request, 'app-page.html')
+
+
+def download(request, id):
     app = AppDetails.objects.get(id=id)
     return render(request, 'download.html', {
         'app': app,

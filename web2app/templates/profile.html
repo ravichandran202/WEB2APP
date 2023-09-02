@@ -2,28 +2,134 @@
 
 {% block title_content %}
 <title>WEB2APP - Profile</title>
-{% endblock title_content %}
+{% endblock %}
 
 {% block style_content %}
 <style>
-  img{
-    width: 150px;
-  }
+    body {
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .box {
+        min-height: 100vh;
+        /* border: 2px solid black; */
+    }
+
+    .info-box {
+        color: aliceblue;
+    }
+
+    .info-box img {
+        width: 150px;
+        border: 5px solid white;
+    }
+
+    .progress-box {
+        height: 100vh;
+        overflow-y: scroll;
+        margin: auto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .progress-results {
+        color: aliceblue;
+        height: 150px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .progress-results h1 {
+        font-size: 5rem;
+        margin-bottom: .5rem;
+    }
+
+    @media screen and (max-width:760px) {
+        .info-box {
+            font-size: 12px;
+            min-width: 100vw;
+        }
+
+        .info-box img {
+            width: 100px;
+            border: 3px solid white;
+        }
+
+        .progress-box {
+            margin: auto;
+            height: auto;
+        }
+    }
 </style>
-{% endblock style_content %}
+{% endblock %}
 
 {% block content %}
-<div class="container" >
-    {% for app in user_apps %}
-    <div style="border:2px solid black;">
-        {% if app.app_image %}
-        <img src="{{app.app_image.url}}" alt="image" class="mt-3">
-        {% else %}
-        <img src="https://cdn-icons-png.flaticon.com/512/61/61120.png" alt="image" class="mt-3">
-        {% endif %}
-        <h1>{{app.app_name}}</h1>
-        <a href="{% url 'download' app.id %}">Download</a>
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <div class="box info-box bg-black text-center py-3">
+                <img src="https://media.licdn.com/dms/image/D5603AQGRoEwbnAVafg/profile-displayphoto-shrink_400_400/0/1687100601863?e=1698883200&v=beta&t=z1Z_CYi7DV8jHn5BYq6N4JBX_9CENIHyEFJGwYzPpwU"
+                    alt="profile-pic" class="rounded-circle mb-1">
+                <h5 class="text-light fw-light">@{{request.user.username}}</h5>
+                <hr class="text-light mx-5">
+                <div class="text-start px-5">
+                    <p class="text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum incidunt
+                        explicabo quae numquam deleniti facere odio odit magnam, voluptas placeat fugit. Amet neque
+                        temporibus dolorum! Pariatur esse illum veritatis repellendus.</p>
+                    <p><span class="fw-bold">Firstname : </span>Ravichandran</p>
+                    <p><span class="fw-bold">lastname : </span>T S</p>
+                    <p><span class="fw-bold">Email Address : </span>ravichandrants202@gmail.com</p>
+                    <p><span class="fw-bold">Website : </span>https://www.ravizzz.000webhostapp.com</p>
+                    <p><span class="fw-bold">Phone : </span>9113971166</p>
+                    <p><span class="fw-bold">Position : </span>Student</p>
+                </div>
+                <a class="btn btn-outline-light w-75">Edit Profile</a>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="box progress-box rounded  m-1 p-2">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="progress-results text-center  img-thumbnail bg-black">
+                            <h1>{{apps|length}}</h1>
+                            <h5>Total Apps</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="progress-results text-center  img-thumbnail bg-black">
+                            <h1>{{total_uploads|length}}</h1>
+                            <h5>Total Uploads</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="progress-results text-center  img-thumbnail bg-black">
+                            <h1>{{likes_user|length}}</h1>
+                            <h5>Total Likes</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="mt-5 fw-bold text-uppercase">Your Apps</h5>
+                        <hr class="text-dark w-100">
+                    </div>
+                </div>
+                <div class="row">
+                    {% for app in apps %}   
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
+                        <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
+                            <img src="{{app.app_image.url}}" alt="{{app.app_name}}" width="100%">
+                            <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
+                            <p class="small mb-0">Likes : 000</p>
+                            <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
 </div>
-{% endblock content %}
+{% endblock %}

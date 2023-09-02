@@ -12,6 +12,31 @@ class AppDetails(BasicInfo):
     app_image = models.ImageField(upload_to='appimages',blank=True,null=True)
     app_name = models.CharField(max_length=20)
     url = models.URLField()
-    
+    is_upload = models.BooleanField(default=False)
     def __str__(self):
         return str(self.app_name)
+    
+class Likes(BasicInfo):
+    user =  models.ForeignKey(User,on_delete=models.CASCADE)
+    app = models.ForeignKey(AppDetails,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.user) + " " + str(self.app)
+    
+class Comments(BasicInfo):
+    user =  models.ForeignKey(User,on_delete=models.CASCADE)
+    app = models.ForeignKey(AppDetails,on_delete=models.CASCADE)
+    content =  models.CharField(max_length=100000, blank=False)
+    
+    def __str__(self):
+        return str(self.user) + " " + str(self.app)
+    
+class Reviews(BasicInfo):
+    user =  models.ForeignKey(User,on_delete=models.CASCADE)
+    app = models.ForeignKey(AppDetails,on_delete=models.CASCADE)
+    value = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return str(self.user) + " " + str(self.app) +" "+ str(self.value)
+    
+    
