@@ -11,4 +11,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://ravizzz.000webhostapp.com/");}} 
+        webView.loadUrl("https://medium.com/");}} 

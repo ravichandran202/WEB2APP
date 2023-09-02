@@ -5,10 +5,25 @@
 {% endblock title_content %}
 
 {% block style_content %}
-    
+<style>
+  img{
+    width: 150px;
+  }
+</style>
 {% endblock style_content %}
 
 {% block content %}
-    
+<div class="container" >
+    {% for app in user_apps %}
+    <div style="border:2px solid black;">
+        {% if app.app_image %}
+        <img src="{{app.app_image.url}}" alt="image" class="mt-3">
+        {% else %}
+        <img src="https://cdn-icons-png.flaticon.com/512/61/61120.png" alt="image" class="mt-3">
+        {% endif %}
+        <h1>{{app.app_name}}</h1>
+        <a href="{% url 'download' app.id %}">Download</a>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
-    

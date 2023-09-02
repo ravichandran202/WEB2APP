@@ -79,17 +79,19 @@ def logout(request):
 
 
 def profile(request):
-    return render(request, 'profile.html')
-
+    return render(request, 'profile.html',{
+        'user_apps':AppDetails.objects.filter(user=request.user)
+    })
 
 def upload(request):
     if request.method == 'POST':
+        image = request.FILES['image']
         url = request.POST['url-field']
         app_title = request.POST['title-field']
         if AppDetails.objects.filter(app_name=app_title).exists():
             messages.error(request, "App name Already Exists")
             return redirect('upload')
-        AppDetails(user=request.user, app_name=app_title, url=url).save()
+        AppDetails(user=request.user, app_name=app_title, url=url,app_image = image).save()
         web2app_converter(app_title, url)
         
         all_apps = AppDetails.objects.all()

@@ -48,7 +48,8 @@
                 <h2 class="fw-bolder">WEBSITE TO ANDROID APP</h2>
                 <p>Convert your WEB to ANDROID APP with incredible accuracy</p><br>
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61120.png" alt="upload-icon" id="output-img">
-                <form action="" method="post" class=" text-start">
+                <form action="" method="post" class=" text-start" enctype="multipart/form-data">
+                    {% csrf_token %}
                     {% if messages %}
                     <div class="alert alert-danger" role="alert">
                         <ul class="p-0 ps-1 m-0">
@@ -58,7 +59,7 @@
                         </ul>
                     </div>
                     {% endif %}
-                    {% csrf_token %}
+                    
                     <label for="title-field" class="form-label fw-bold">App Title :</label>
                     <input type="text" class="form-control p-2" name="title-field" id="title-field"
                         placeholder="Web2App" required>
