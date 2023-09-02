@@ -6,9 +6,10 @@
 
 {% block style_content %}
 <style>
-    body{
+    body {
         overflow-x: hidden;
     }
+
     .form-box {
         width: 30%;
     }
@@ -36,23 +37,33 @@
             <div class=" d-flex align-items-center justify-content-center" style="min-height: 100vh; ">
                 <div class="form-box img-thumbnail p-2 py-3">
                     <h3 class="text-center">SIGNUP</h3><br>
-                    <form action="" method="post">
-                        <label for="name-field" class="form-label fw-bold">User Name :</label>
-                        <input type="text" name="name-field" id="name-field" class="form-control">
-                        <label for="email-field" class="form-label fw-bold">Email :</label>
-                        <input type="email" name="email-field" id="email-field" class="form-control">
-                        <label for="password-field" class="form-label fw-bold">Password :</label>
-                        <input type="password" name="password-field" id="password-field" class="form-control">
-                        <label for="password2-field" class="form-label fw-bold">Confirm Password :</label>
-                        <input type="password" name="password2-field" id="password2-field" class="form-control">
-                        <a href="" type="submit" class="btn btn-dark px-5 rounded-5 mt-2 w-100">Submit</a>
-                    </form>
-                    <hr>
-                    <p class="text-center">Already have an account | <a href="{% url 'login' %}"
-                            class="text-decoration-none">Login</a></p>
-                </div>
-            </div>
+                    {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="p-0 ps-1 m-0">
+                            {% for message in messages %}
+                            <li class="m-0 p-0">{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}           
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="name-field" class="form-label fw-bold">User Name :</label>
+                <input type="text" name="name-field" id="name-field" class="form-control" required>
+                <label for="email-field" class="form-label fw-bold">Email :</label>
+                <input type="email" name="email-field" id="email-field" class="form-control" required>
+                <label for="password-field" class="form-label fw-bold">Password :</label>
+                <input type="password" name="password-field" id="password-field" class="form-control" required>
+                <label for="password2-field" class="form-label fw-bold">Confirm Password :</label>
+                <input type="password" name="password2-field" id="password2-field" class="form-control" required>
+                <button href="" type="submit" class="btn btn-dark px-5 rounded-5 mt-2 w-100">Submit</button>
+            </form>
+            <hr>
+            <p class="text-center">Already have an account | <a href="{% url 'login' %}"
+                    class="text-decoration-none">Login</a></p>
         </div>
     </div>
+</div>
+</div>
 </div>
 {% endblock content %}
