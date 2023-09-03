@@ -79,10 +79,15 @@ def logout(request):
 
 
 def profile(request):
+    total_likes = 0
+    user_uploaded_apps = AppDetails.objects.filter(user=request.user,is_upload = True)
+    for app in user_uploaded_apps:
+        total_likes += Likes.objects.filter(app=app).count()
+    
     return render(request, 'profile.html', {
         'apps': AppDetails.objects.filter(user=request.user),
         'total_uploads' : AppDetails.objects.filter(user=request.user,is_upload = True),
-        'likes' : Likes
+        'total_likes' : total_likes
     })
 
 
