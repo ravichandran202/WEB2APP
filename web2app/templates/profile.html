@@ -69,22 +69,65 @@
     <div class="row">
         <div class="col-sm-12 col-md-4">
             <div class="box info-box bg-black text-center py-3">
-                <img src="https://media.licdn.com/dms/image/D5603AQGRoEwbnAVafg/profile-displayphoto-shrink_400_400/0/1687100601863?e=1698883200&v=beta&t=z1Z_CYi7DV8jHn5BYq6N4JBX_9CENIHyEFJGwYzPpwU"
+                {% if user_info.profile_image %}
+                <img src="{{user_info.profile_image.url}}" alt="profile-pic" class="rounded-circle mb-1">
+                {% else %}
+                <img src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
                     alt="profile-pic" class="rounded-circle mb-1">
-                <h5 class="text-light fw-light">@{{request.user.username}}</h5>
+                {% endif %}
+                <h5 class="text-light fw-light">@{{user.username}}</h5>
                 <hr class="text-light mx-5">
                 <div class="text-start px-5">
-                    <p class="text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum incidunt
-                        explicabo quae numquam deleniti facere odio odit magnam, voluptas placeat fugit. Amet neque
-                        temporibus dolorum! Pariatur esse illum veritatis repellendus.</p>
-                    <p><span class="fw-bold">Firstname : </span>Ravichandran</p>
-                    <p><span class="fw-bold">lastname : </span>T S</p>
-                    <p><span class="fw-bold">Email Address : </span>ravichandrants202@gmail.com</p>
-                    <p><span class="fw-bold">Website : </span>https://www.ravizzz.000webhostapp.com</p>
-                    <p><span class="fw-bold">Phone : </span>9113971166</p>
-                    <p><span class="fw-bold">Position : </span>Student</p>
+
+                    {% if user_info.about %}
+                    <p class="text-center">{{user_info.about}}</p>
+                    {% else %}
+                    <p class="text-center">Nothing To Show Here....</p>
+                    {% endif %}
+
+                    {% if user_info.first_name %}
+                    <p><span class="fw-bold">Firstname : </span>{{user_info.first_name}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Firstname : </span>------------</p>
+                    {% endif %}
+
+                    {% if user_info.last_name %}
+                    <p><span class="fw-bold">Lastname : </span>{{user_info.last_name}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Lastname : </span>------------</p>
+                    {% endif %}
+
+                    {% if user_info.email %}
+                    <p><span class="fw-bold">Email Address : </span>{{user_info.email}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Email Address : </span>------------</p>
+                    {% endif %}
+
+                    <!-- <p><span class="fw-bold">Website : </span>https://www.ravizzz.000webhostapp.com</p> -->
+
+
+                    {% if user_info.phone %}
+                    <p><span class="fw-bold">Phone : </span>{{user_info.phone}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Phone : </span>------------</p>
+                    {% endif %}
+
+                    {% if user_info.position %}
+                    <p><span class="fw-bold">Position : </span>{{user_info.position}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Position : </span>------------</p>
+                    {% endif %}
+
+                    {% if user_info.website %}
+                    <p><span class="fw-bold">Website : </span>{{user_info.website}}</p>
+                    {% else %}
+                    <p><span class="fw-bold">Website : </span>------------</p>
+                    {% endif %}
+
                 </div>
-                <a class="btn btn-outline-light w-75">Edit Profile</a>
+                {% if request.user == user %}
+                <a href="{% url 'editprofile' %}" class="btn btn-outline-light w-75">Edit Profile</a>
+                {% endif %}
             </div>
         </div>
         <div class="col-sm-12 col-md-8">
@@ -117,13 +160,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    {% for app in apps %}   
+                    {% for app in apps %}
                     <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
                         <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
                             <img src="{{app.app_image.url}}" alt="{{app.app_name}}" width="100%">
                             <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
-                            <p class="small mb-0">Likes : {{likes__app|length}}</p>
-                            <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
+                            <p class="small mb-0">Downloads : {{app.total_downloads}}</p>
+                            <a href="{% url 'apppage' app.id %}"
+                                class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
                         </div>
                     </div>
                     {% endfor %}

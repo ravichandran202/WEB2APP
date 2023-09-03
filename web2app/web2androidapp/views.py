@@ -9,8 +9,8 @@ from pathlib import Path
 import shutil
 import os
 
-from .models import AppDetails,Likes,Comments,Reviews
-from .forms import AppDetailsForm
+from .models import UserBasicInfo,AppDetails,Likes,Comments,Reviews
+from .forms import AppDetailsForm,UserBasicInfoForm
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -27,7 +27,6 @@ def web2app_converter(app_name, url):
     android_code_file.close()
     shutil.make_archive(f'media/downloads/{app_name}', 'zip', zip_folder_path)
 
-# Create your views here.
 
 
 def home(request):
@@ -76,20 +75,41 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+   
 
-
-def profile(request):
+def profile(request,id):
+    basic_user_object = ''
     total_likes = 0
-    user_uploaded_apps = AppDetails.objects.filter(user=request.user,is_upload = True)
+    user_uploaded_apps = AppDetails.objects.filter(user=User.objects.get(id=id),is_upload = True)
     for app in user_uploaded_apps:
         total_likes += Likes.objects.filter(app=app).count()
+    try : 
+        basic_user_object = UserBasicInfo.objects.get(user=User.objects.get(id=id))
+    except:
+        UserBasicInfo(user=request.user).save()
+        basic_user_object = UserBasicInfo.objects.get(user=User.objects.get(id=id))
     
     return render(request, 'profile.html', {
-        'apps': AppDetails.objects.filter(user=request.user),
-        'total_uploads' : AppDetails.objects.filter(user=request.user,is_upload = True),
-        'total_likes' : total_likes
+        'user': User.objects.get(id=id),
+        'user_info' : basic_user_object,
+        'apps': AppDetails.objects.filter(user=User.objects.get(id=id)),
+        'total_uploads' : AppDetails.objects.filter(user=User.objects.get(id=id),is_upload = True),
+        'total_likes' : total_likes,
+        'likes' : Likes
     })
 
+def editProfile(request):
+    user = UserBasicInfo.objects.get(user=request.user)
+    form = UserBasicInfoForm(instance=user)
+    if request.method == 'POST':
+        form = UserBasicInfoForm(instance=user,data = request.POST,files= request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('profile',request.user.id)
+    return render(request, 'editprofile.html',{
+        'form' : form,
+        'user_info': user,
+    })
 
 def upload(request):
     if request.method == 'POST':
@@ -108,19 +128,26 @@ def upload(request):
         return redirect('download', created_app.id)
     return render(request, 'upload.html')
 
-# def upload(request):
-#     form = AppDetailsForm()
-#     if request.method == 'POST':
-#         form = AppDetailsForm(data=request.POST , files=request.FILES)
-#         if form.is_valid():
-#             form.save()
-#     return render(request,'newupload.html',{
-#         'form' : form
-#     })
+def delete_app(request,id):
+    app = AppDetails.objects.get(id=id)
+    app.delete()
+    return redirect('profile',request.user.id)
 
+def upload_app_to_store(request,id):
+    app = AppDetails.objects.get(id=id)
+    app.is_upload=True
+    app.save()
+    return redirect('profile',request.user.id)
 
 def app_store(request):
-    return render(request, 'appstore.html')
+    most_recent_apps = AppDetails.objects.filter(is_upload = True).order_by('-created_at')
+    most_popular_apps = AppDetails.objects.filter(is_upload = True).order_by('-total_downloads')
+    print(most_recent_apps)
+    print(most_popular_apps)
+    return render(request, 'appstore.html',{
+        'most_recent_apps': most_recent_apps,
+        'most_popular_apps' : most_popular_apps
+    })
 
 
 def app_page(request, id):
@@ -131,6 +158,8 @@ def app_page(request, id):
 
 def download(request, id):
     app = AppDetails.objects.get(id=id)
+    app.total_downloads += 1
+    app.save()
     return render(request, 'download.html', {
         'app': app,
     })

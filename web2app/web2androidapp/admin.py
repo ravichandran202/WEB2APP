@@ -1,6 +1,9 @@
 from django.contrib import admin
-from .models import AppDetails,Likes,Comments,Reviews
+from .models import UserBasicInfo,AppDetails,Likes,Comments,Reviews
 # Register your models here.
+@admin.register(UserBasicInfo)
+class AdminUserBasicInfo(admin.ModelAdmin):
+    list_display = ('user', 'first_name','last_name','email')
 
 @admin.register(AppDetails)
 class AdminCreateApp(admin.ModelAdmin):

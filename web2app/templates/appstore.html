@@ -16,58 +16,19 @@
 
 <!-- POPULAR APPS -->
 <div class="container pb-3">
-    <h4 class="pt-md-5 pt-2 text-uppercase fw-bold">Popular Apps</h4>
+    <h4 class="pt-5 text-uppercase fw-bold">POPULAR Apps</h4>
     <hr>
     <div class="row">
+        {% for app in most_popular_apps %}
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
             <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
+                <img src="{{app.app_image.url}}" alt="app-img" width="100%">
+                <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
+                <p class="small mb-0">Downloads : {{app.total_downloads}}</p>
+                <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
             </div>
         </div>
-            
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -132,54 +93,16 @@
     <h4 class="pt-5 text-uppercase fw-bold">Recent Apps</h4>
     <hr>
     <div class="row">
+        {% for app in most_recent_apps %}
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
             <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
+                <img src="{{app.app_image.url}}" alt="app-img" width="100%">
+                <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
+                <p class="small mb-0">Downloads : {{app.total_downloads}}</p>
+                <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
             </div>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
