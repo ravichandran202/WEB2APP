@@ -71,12 +71,12 @@ def signup(request):
             return redirect('signup')
     return render(request, 'signup.html')
 
-
+@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
     return redirect('login')
    
-
+@login_required(login_url='login')
 def profile(request,id):
     basic_user_object = ''
     total_likes = 0
@@ -92,12 +92,13 @@ def profile(request,id):
     return render(request, 'profile.html', {
         'user': User.objects.get(id=id),
         'user_info' : basic_user_object,
-        'apps': AppDetails.objects.filter(user=User.objects.get(id=id)),
+        'apps': AppDetails.objects.filter(user=User.objects.get(id=id)).order_by('-created_at'),
         'total_uploads' : AppDetails.objects.filter(user=User.objects.get(id=id),is_upload = True),
         'total_likes' : total_likes,
         'likes' : Likes
     })
 
+@login_required(login_url='login')
 def editProfile(request):
     user = UserBasicInfo.objects.get(user=request.user)
     form = UserBasicInfoForm(instance=user)
@@ -111,6 +112,7 @@ def editProfile(request):
         'user_info': user,
     })
 
+@login_required(login_url='login')
 def upload(request):
     if request.method == 'POST':
         image = request.FILES['image']
@@ -128,11 +130,13 @@ def upload(request):
         return redirect('download', created_app.id)
     return render(request, 'upload.html')
 
+@login_required(login_url='login')
 def delete_app(request,id):
     app = AppDetails.objects.get(id=id)
     app.delete()
     return redirect('profile',request.user.id)
 
+@login_required(login_url='login')
 def upload_app_to_store(request,id):
     app = AppDetails.objects.get(id=id)
     app.is_upload=True
@@ -142,8 +146,7 @@ def upload_app_to_store(request,id):
 def app_store(request):
     most_recent_apps = AppDetails.objects.filter(is_upload = True).order_by('-created_at')
     most_popular_apps = AppDetails.objects.filter(is_upload = True).order_by('-total_downloads')
-    print(most_recent_apps)
-    print(most_popular_apps)
+
     return render(request, 'appstore.html',{
         'most_recent_apps': most_recent_apps,
         'most_popular_apps' : most_popular_apps
@@ -151,11 +154,30 @@ def app_store(request):
 
 
 def app_page(request, id):
+    app = AppDetails.objects.get(id=id)
+    if request.method == "POST":
+        app_comment = request.POST['comment']
+        Comments(user = User.objects.get(id=request.user.id), app = app, content = app_comment).save()
+
     return render(request, 'app-page.html',{
-        'app' : AppDetails.objects.get(id=id)
+        'app' : AppDetails.objects.get(id=id),
+        'comments' : Comments.objects.filter(app = app).order_by('-created_at'),
+        'most_recent_apps': AppDetails.objects.filter(is_upload = True).order_by('-created_at')
+
+    })
+    
+def edit_app(request, id):
+    app = AppDetails.objects.get(id=id)
+    if request.method == "POST":
+        about_app = request.POST['about']
+        app.about = about_app
+        app.save()
+        return redirect('apppage', app.id)
+    return render(request, 'editapp.html',{
+        'app' : AppDetails.objects.get(id=id),
     })
 
-
+@login_required(login_url='login')
 def download(request, id):
     app = AppDetails.objects.get(id=id)
     app.total_downloads += 1
@@ -163,3 +185,9 @@ def download(request, id):
     return render(request, 'download.html', {
         'app': app,
     })
+
+@login_required(login_url='login')
+def delete_comment(request,appid,id):
+    comment = Comments.objects.get(id=id)
+    comment.delete()
+    return redirect('apppage', appid)

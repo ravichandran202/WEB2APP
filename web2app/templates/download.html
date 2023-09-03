@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <p class="fw-bold text-success">Successfully Converted into Android App</p>
-                <a href="../media/downloads/{{app.app_name}}.zip" class="btn btn-dark py-md-3 w-100" download> Downlod
+                <a href="../media/downloads/{{app.app_name}}.zip" id="download-btn" class="btn btn-dark py-md-3 w-100" download> Downlod
                     Zip File </a>
             </div>
         </div>
@@ -97,5 +97,6 @@
 </div>
 <script>
     window.location.replace("../media/downloads/{{app.app_name}}.zip")
+    document.getElementById('download-btn').setAttribute('class','btn btn-dark py-md-3 w-100 disabled')
 </script>
 {% endblock %}

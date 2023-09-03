@@ -98,7 +98,7 @@
                     {% endif %}
 
                     {% if user_info.email %}
-                    <p><span class="fw-bold">Email Address : </span>{{user_info.email}}</p>
+                    <p><span class="fw-bold">Email Address : </span><a href="mailto:{{user_info.email}}" class="text-decoration-none">{{user_info.email}}</a></p>
                     {% else %}
                     <p><span class="fw-bold">Email Address : </span>------------</p>
                     {% endif %}
@@ -107,7 +107,7 @@
 
 
                     {% if user_info.phone %}
-                    <p><span class="fw-bold">Phone : </span>{{user_info.phone}}</p>
+                    <p><span class="fw-bold">Phone : </span><a href="tel:{{user_info.phone}}" class="text-decoration-none">{{user_info.phone}}</a></p>
                     {% else %}
                     <p><span class="fw-bold">Phone : </span>------------</p>
                     {% endif %}
@@ -119,7 +119,7 @@
                     {% endif %}
 
                     {% if user_info.website %}
-                    <p><span class="fw-bold">Website : </span>{{user_info.website}}</p>
+                    <p><span class="fw-bold">Website : </span><a href="{{user_info.website}}" class="text-decoration-none" target="_blank">{{user_info.website}}</a></p>
                     {% else %}
                     <p><span class="fw-bold">Website : </span>------------</p>
                     {% endif %}

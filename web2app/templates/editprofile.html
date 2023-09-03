@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title_content %}
+<title>WEB2APP - Edit Profile</title>
+{% endblock %}
+
+{% block style_content %}
+<style>
+    img {
+        width: 120px;
+        border: 5px solid black;
+        border-radius: 50%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class=" d-flex align-items-center justify-content-center">
+                <div class="form-box img-thumbnail p-5 my-2">
+                    <h3 class="text-center">Edit Profile</h3><br>
+                    {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="p-0 ps-1 m-0">
+                            {% for message in messages %}
+                            <li class="m-0 p-0">{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if user_info.profile_image %}
+                    <div class="text-center"><img src="{{user_info.profile_image.url}}" alt="profile-pic"
+                            class="rounded-circle mb-1"></div>
+                    {% else %}
+                    <div class="text-center"><img
+                            src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                            alt="profile-pic" class="rounded-circle mb-1" width="100px"></div>
+                    {% endif %}
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <label for="{{field.label}}" class="form-label fw-bold d-block">{{field.label}}</label>
+                        {{field}}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-dark px-5 rounded-5 mt-2 w-100">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}

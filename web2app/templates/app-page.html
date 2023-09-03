@@ -21,6 +21,18 @@
             font-size: 1.2rem;
             font-weight: 600;
         }
+
+        .btn{
+            width: 100% !important;
+            margin-top: 1rem;
+            font-size: .8rem !important;
+        }
+
+        textarea{
+            font-size: .8rem !important ;
+        }
+
+        
     }
 </style>
 {% endblock %}
@@ -47,30 +59,41 @@
             </div>
         </div>
         {% if app.user == request.user %}
-            {% if app.is_upload %}
-                <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
-                    <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5">DELETE</a>
-                </div>
-            {% else %}
-                <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
-                    <div>
-                        <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5">DELETE</a>
-                        <a href="{% url 'uploadapp' app.id %}" class="btn btn-outline-dark px-5">UPLOAD</a>
-                    </div>
-                </div>
-            {% endif %}
+        {% if app.is_upload %}
+        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
+            <div>
+                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2 w-75" >Download</a>
+                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2 w-75">DELETE</a>
+            </div>
+        </div>
         {% else %}
-        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center"><a href="{% url 'download' app.id %}"
-                class="btn btn-dark px-5">DOWNLOAD</a></div>
+        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
+            <div>
+                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2" style="width: 49%;">Download</a>
+                <a href="{% url 'uploadapp' app.id %}" class="btn btn-outline-dark px-5 mt-2" style="width: 49%;">UPLOAD</a>
+                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2 w-100">DELETE</a>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center"><a
+                href="{% url 'download' app.id %}" class="btn btn-dark px-5">DOWNLOAD</a></div>
         {% endif %}
     </div>
-    <p class="pt-5 text-uppercase fw-bold">About</p>
+    <p class="pt-5 text-uppercase fw-bold">About
+        {% if app.user == request.user %}
+        <a href="{% url 'editapp' app.id %}"> <img src="https://img.icons8.com/?size=512&id=8192&format=png"
+                alt="edit-logo" width="25px" class="ps-2"></a>
+        {% endif %}
+    </p>
     <hr>
     <div class="row">
         <div class="col-md-8 col-12">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem corrupti quasi voluptates saepe omnis
-                at voluptas unde, aliquam quod totam placeat a illum magnam, libero autem nobis possimus neque
-                aperiam.</p>
+            {%if app.about %}
+            <p>{{app.about}}</p>
+            {% else %}
+            <p>No Information about this app....</p>
+            {% endif %}
         </div>
     </div>
     <!-- introduction section ends -->
@@ -80,41 +103,40 @@
     <hr>
     <div class="row">
         <div class="col-md-8">
+            {% if comments %}
+            {% for comment in comments %}
             <div class="comment-box">
-                <p class="m-0"><a href="#" class="fw-bold text-black text-decoration-none">@User-name</a> <a href="#"
-                        class="text-danger text-decoration-none ps-2">| Delete</a></p>
-                <p class="small ps-2">1 min ago</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vero suscipit porro animi maiores
-                    unde cupiditate minus inventore quia minima ratione, non tempora quidem perferendis, fuga
-                    assumenda sequi vitae possimus.</p>
+                <p class="m-0">
+                    <a href="{% url 'profile' comment.user.id %}" class="fw-bold text-black text-decoration-none">@{{comment.user}}</a>
+                    {% if request.user.is_authenticated %} 
+                        {% if comment.user == request.user %}
+                            <a href="{% url 'deletecomment' app.id comment.id %}" class="text-danger text-decoration-none ps-2">| Delete</a>
+                        {% endif %}
+                    {% endif %}
+                </p>
+                <p class="small ps-2">{{comment.created_at|timesince}} ago</p>
+                <p>{{comment.content}}</p>
                 <hr>
             </div>
+            {% endfor %}
+            {% else %}
             <div class="comment-box">
-                <p class="m-0"><a href="#" class="fw-bold text-black text-decoration-none">@User-name</a> <a href="#"
-                        class="text-danger text-decoration-none ps-2">| Delete</a></p>
-                <p class="small ps-2">1 min ago</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vero suscipit porro animi maiores
-                    unde cupiditate minus inventore quia minima ratione, non tempora quidem perferendis, fuga
-                    assumenda sequi vitae possimus.</p>
-                <hr>
+                <p>Be First to comment on this App.</p>
             </div>
-            <div class="comment-box">
-                <p class="m-0"><a href="#" class="fw-bold text-black text-decoration-none">@User-name</a> <a href="#"
-                        class="text-danger text-decoration-none ps-2">| Delete</a></p>
-                <p class="small ps-2">1 min ago</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vero suscipit porro animi maiores
-                    unde cupiditate minus inventore quia minima ratione, non tempora quidem perferendis, fuga
-                    assumenda sequi vitae possimus.</p>
-                <hr>
-            </div>
+            {% endif %}
         </div>
         <div class="col-md-4">
             <div class="">
                 <form action="" method="post">
+                    {% csrf_token %}
                     <p class="fw-bold">Enter Your Comments :</p>
                     <textarea rows="3" name="comment" placeholder="Enter Something here..."
-                        class="form-control"></textarea>
-                    <button class="btn btn-dark w-100 mt-2">Submit</button>
+                        class="form-control small"></textarea>
+                    {% if request.user.is_authenticated %}
+                    <button class="btn btn-dark w-100 mt-2" type="submit">Submit</button>
+                    {% else %}
+                    <button class="btn btn-dark w-100 mt-2" type="submit" disabled>Submit</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -125,54 +147,16 @@
     <p class="pt-5 text-uppercase fw-bold">Recent Apps</p>
     <hr>
     <div class="row">
+        {% for app in most_recent_apps %}
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
             <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
+                <img src="{{app.app_image.url}}" alt="app-img" width="100%">
+                <p class="pt-1 fw-bold p-0 m-0">{{app.app_name}}</p>
+                <p class="small mb-0">Downloads : {{app.total_downloads}}</p>
+                <a href="{% url 'apppage' app.id %}" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
             </div>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title_content %}
-<title>WEB2APP - Login</title>
+<title>WEB2APP - Edit App</title>
 {% endblock %}
 
 {% block style_content %}
@@ -14,7 +14,9 @@
         width: 30%;
     }
 
-
+    img{
+        border:5px solid black;
+    }
 
     @media screen and (max-width:900px) {
         .form-box {
@@ -26,20 +28,18 @@
         .form-box {
             width: 100%;
         }
-
     }
 </style>
+
 {% endblock %}
 
-
 {% block content %}
-
 <div class="container">
     <div class="row">
         <div class="col-12">
             <div class=" d-flex align-items-center justify-content-center" style="min-height: 100vh; ">
                 <div class="form-box img-thumbnail p-2 py-3">
-                    <h3 class="text-center">LOGIN</h3><br>
+                    <h3 class="text-center">EDIT APP</h3><br>
                     {% if messages %}
                     <div class="alert alert-danger" role="alert">
                         <ul class="p-0 ps-1 m-0">
@@ -51,19 +51,18 @@
                     {% endif %}
                     <form action="" method="post">
                         {% csrf_token %}
-                        <label for="name-field" class="form-label fw-bold">User Name :</label>
-                        <input type="text" name="name-field" id="name-field" class="form-control" required><br>
-                        <label for="password-field" class="form-label fw-bold">Password :</label>
-                        <input type="password" name="password-field" id="password-field" class="form-control" required>
+                        <div class="w-100  text-center">
+                            <img src="{{app.app_image.url}}" alt="app-img" width="100px" class="rounded-circle"><br>
+                        </div>
+                        <label for="name-field" class="form-label fw-bold">App Title :</label>
+                        <input type="text" name="name-field" id="name-field" class="form-control fw-bold" value="{{app.app_name}}" disabled><br>
+                        <label for="about-field" class="form-label fw-bold">About :</label>
+                        <textarea type="text" name="about" id="about-field" class="form-control" placeholder="Enter something here">{{app.about}}</textarea>
                         <button type="submit" class="btn btn-dark px-5 rounded-5 mt-2 w-100">Submit</button>
                     </form>
-                    <hr>
-                    <p class="text-center">Don't have an account | <a href="{% url 'signup' %}"
-                            class="text-decoration-none">Sign
-                            up</a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}
