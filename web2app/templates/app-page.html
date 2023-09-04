@@ -22,17 +22,17 @@
             font-weight: 600;
         }
 
-        .btn{
-            width: 100% !important;
+        .btn {
+            /* width: 49% !important; */
             margin-top: 1rem;
             font-size: .8rem !important;
         }
 
-        textarea{
-            font-size: .8rem !important ;
+        textarea {
+            font-size: .8rem !important;
         }
 
-        
+
     }
 </style>
 {% endblock %}
@@ -47,14 +47,7 @@
                 <div class="app-info ps-md-2 p-0 w-md-50">
                     <h3>{{app.app_name}}</h3>
                     <a href="{% url 'profile' app.user.id %}" class="text-decoration-none">@{{app.user}}</a>
-                    <div class="app-rating">
-                        <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
-                        <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
-                        <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
-                        <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
-                        <img src="https://img.icons8.com/?size=512&id=7856&format=png" alt="rating" width="25px">
-                    </div>
-                    <p class="mt-1"><strong>Downloads :</strong> {{app.total_downloads}}</p>
+                    <p><strong>Total Likes :</strong> {{total_likes|length}} <strong>| Downloads :</strong> {{app.total_downloads}}</p>
                 </div>
             </div>
         </div>
@@ -62,22 +55,53 @@
         {% if app.is_upload %}
         <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
             <div>
-                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2 w-75" >Download</a>
-                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2 w-75">DELETE</a>
+
+                {% if is_user_liked %}
+                <a href="{% url 'unlikeapp' app.id %}" class="btn btn-danger px-5 mt-2  fw-bold "
+                    style="width: 49%;">Unlike</a>
+                {% else %}
+                <a href="{% url 'likeapp' app.id %}" class="btn btn-outline-danger px-5 mt-2  fw-bold "
+                    style="width: 49%;">Like</a>
+                {% endif %}
+
+                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2" style="width: 49%;">Delete</a>
+                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2"
+                    style="width: 49%;">Download</a>
             </div>
         </div>
         {% else %}
         <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
             <div>
-                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2" style="width: 49%;">Download</a>
-                <a href="{% url 'uploadapp' app.id %}" class="btn btn-outline-dark px-5 mt-2" style="width: 49%;">UPLOAD</a>
-                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2 w-100">DELETE</a>
+                {% if is_user_liked %}
+                <a href="{% url 'unlikeapp' app.id %}" class="btn btn-danger px-5 mt-2  fw-bold "
+                    style="width: 49%;">Unlike</a>
+                {% else %}
+                <a href="{% url 'likeapp' app.id %}" class="btn btn-outline-danger px-5 mt-2  fw-bold "
+                    style="width: 49%;">Like</a>
+                {% endif %}
+                <a href="{% url 'deleteapp' app.id %}" class="btn btn-dark px-5 mt-2" style="width: 49%;">Delete</a>
+                <a href="{% url 'download' app.id %}" class="btn btn-outline-dark px-5 mt-2"
+                    style="width: 49%;">Download</a>
+                <a href="{% url 'uploadapp' app.id %}" class="btn btn-outline-dark px-5 mt-2"
+                    style="width: 49%;">Publish</a>
             </div>
         </div>
         {% endif %}
         {% else %}
-        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center"><a
-                href="{% url 'download' app.id %}" class="btn btn-dark px-5">DOWNLOAD</a></div>
+        <div class="col-md-4 col-12 d-md-flex align-items-center text-md-start text-center">
+             <div>
+                {% if is_user_liked %}
+                <a href="{% url 'unlikeapp' app.id %}" class="btn btn-danger px-5 mt-2  fw-bold "
+                    style="width: 100%;">Unlike</a>
+                {% else %}
+                <a href="{% url 'likeapp' app.id %}" class="btn btn-outline-danger px-5 mt-2  fw-bold "
+                    style="width: 100%;">Like</a>
+                {% endif %}
+
+                <a href="{% url 'download' app.id %}" class="btn btn-dark px-5 mt-2"
+                    style="width: 100%;">Download</a>
+             </div>
+        </div>
         {% endif %}
     </div>
     <p class="pt-5 text-uppercase fw-bold">About
@@ -107,11 +131,13 @@
             {% for comment in comments %}
             <div class="comment-box">
                 <p class="m-0">
-                    <a href="{% url 'profile' comment.user.id %}" class="fw-bold text-black text-decoration-none">@{{comment.user}}</a>
-                    {% if request.user.is_authenticated %} 
-                        {% if comment.user == request.user %}
-                            <a href="{% url 'deletecomment' app.id comment.id %}" class="text-danger text-decoration-none ps-2">| Delete</a>
-                        {% endif %}
+                    <a href="{% url 'profile' comment.user.id %}"
+                        class="fw-bold text-black text-decoration-none">@{{comment.user}}</a>
+                    {% if request.user.is_authenticated %}
+                    {% if comment.user == request.user %}
+                    <a href="{% url 'deletecomment' app.id comment.id %}"
+                        class="text-danger text-decoration-none ps-2">| Delete</a>
+                    {% endif %}
                     {% endif %}
                 </p>
                 <p class="small ps-2">{{comment.created_at|timesince}} ago</p>
@@ -159,5 +185,13 @@
         {% endfor %}
     </div>
 </div>
+<script>
+    window.addEventListener('onload', ()=>{
+        console.log('loading');
+    })
 
+    window.addEventListener('load', ()=>{
+        console.log('done loading');
+    })
+</script>
 {% endblock content %}

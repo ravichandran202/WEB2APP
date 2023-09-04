@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserBasicInfo,AppDetails,Likes,Comments,Reviews
+from .models import UserBasicInfo,AppDetails,Likes,Comments
 # Register your models here.
 @admin.register(UserBasicInfo)
 class AdminUserBasicInfo(admin.ModelAdmin):
@@ -16,7 +16,3 @@ class AdminLikes(admin.ModelAdmin):
 @admin.register(Comments)
 class AdminComments(admin.ModelAdmin):
     list_display = ('user', 'app')
-    
-@admin.register(Reviews)
-class AdminReviews(admin.ModelAdmin):
-    list_display = ('user', 'app','value')

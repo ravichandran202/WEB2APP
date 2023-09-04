@@ -11,6 +11,30 @@
         border: 5px solid black;
         border-radius: 50%;
     }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .form-box {
+        width: 40%;
+    }
+
+    img {
+        border: 5px solid black;
+    }
+
+    @media screen and (max-width:900px) {
+        .form-box {
+            width: 50%;
+        }
+    }
+
+    @media screen and (max-width:600px) {
+        .form-box {
+            width: 100%;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -19,7 +43,7 @@
     <div class="row">
         <div class="col-12">
             <div class=" d-flex align-items-center justify-content-center">
-                <div class="form-box img-thumbnail p-5 my-2">
+                <div class="form-box img-thumbnail p-md-5 my-2">
                     <h3 class="text-center">Edit Profile</h3><br>
                     {% if messages %}
                     <div class="alert alert-danger" role="alert">

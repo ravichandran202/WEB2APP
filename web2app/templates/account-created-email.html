@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-size: 16px;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+            text-align: center !important;
+            max-width: 500px !important;
+        }
+
+        * {
+            text-align: center !important;
+        }
+
+        .img-background {
+            /* background-image: url('https://images.unsplash.com/photo-1506747958701-808cb3805b0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80'); */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            /* min-height: 95vh; */
+            border: 2px solid black;
+        }
+
+        .head-title {
+            margin-bottom: 5rem;
+        }
+
+        .head-title p {
+            width: 50%;
+            margin: auto;
+        }
+
+        .img-background h1 {
+            font-size: 5rem;
+            letter-spacing: 5px;
+        }
+
+        .img-background p {
+            font-weight: 200;
+        }
+
+        .img-background .btn {
+            /* background-color: #fa7e61; */
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .body2 {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons {
+            width: 40px;
+            border-radius: 50%;
+            border: 2px solid rgb(184, 183, 183);
+            cursor: pointer;
+            background-color: aliceblue;
+        }
+
+        @media screen and (max-width:768px) {
+
+            .img-background h1 {
+                font-size: 3rem;
+                letter-spacing: 3px;
+            }
+
+            .head-title {
+                margin-bottom: 0rem;
+            }
+
+            .head-title p {
+                width: 100%;
+                margin: auto;
+            }
+        }
+
+        @media screen and (max-width:576px) {
+            * {
+                text-align: center !important;
+            }
+
+            .img-background h1 {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-12">
+            <h1>WELCOME TO WEB2APP</h1>
+            <h3>{{name}}</h3>
+        </div>
+    </div>
+    <div class="container body2">
+        <div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center pt-3 head-title">
+                        <h2 class="fw-bold">FEATURES</h2>
+                        <p>Empowering seamless app creation with web-to-app conversion, versatile designs, and a
+                            code-free approach for an exceptional Android experience.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="px-md-5 py-4  mt-2 text-center">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=24756&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">Web to App</h3>
+                        <p class="small">Effortlessly transition from website to Android app. Maintain content and
+                            features, while enhancing the mobile experience through optimized design and functionality,
+                            catering to a wider audience.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="px-md-5 py-4  mt-2 text-center">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=34554&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">Unlimited Design</h3>
+                        <p class="small">Infuse your app with personality. Select from a multitude of design choices to
+                            create a distinctive visual identity that aligns flawlessly with your brand's essence.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="px-md-5 py-4  mt-2 text-center">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=oNTEU8sbVPVY&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">No Coding</h3>
+                        <p class="small">Craft Android apps seamlessly using a code-free solution. Simplify conversion,
+                            empower more users to participate, and accelerate the app creation process without the need
+                            for complex programming.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container body2" id="explore" style="text-align: center;">
+        <div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center pt-3 head-title">
+                        <h2 class="fw-bold">STEPS TO CONVERT</h2>
+                        <p>Follow the below steps to convert WEBSITE into APP</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="px-md-5 py-4  mt-2 text-center img-thumbnail">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=60019&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">1. Insert Website URL</h3>
+                        <p class="small">Begin by entering your website's URL into the conversion tool to initiate the
+                            transformation process from web to Android app.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="px-md-5 py-4  mt-2 text-center img-thumbnail">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=59783&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">2. Download Zip File</h3>
+                        <p class="small">After conversion, receive a ZIP file containing your app. Download it to your
+                            computer for further processing.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="px-md-5 py-4  mt-2 text-center img-thumbnail">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=101360&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">3. Unzip and Run</h3>
+                        <p class="small">Extract the downloaded ZIP file, and open the project within Android Studio to
+                            access and customize your app.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="px-md-5 py-4  mt-2 text-center img-thumbnail">
+                        <div class="icon"><img src="https://img.icons8.com/?size=512&id=7692&format=png" alt=""
+                                width="15%" class=" p-2"></div>
+                        <h3 class="pt-3">4. Build APK</h3>
+                        <p class="small">Utilize Android Studio's tools to build an APK file from your project,
+                            resulting in an installable Android application package.</p>
+                        <!-- <a href="#" class="text-decoration-none">Read More...</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

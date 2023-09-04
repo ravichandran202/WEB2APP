@@ -9,6 +9,17 @@
     .app-box {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
+
+    @media screen and (max-width:700px) {
+        body {
+            font-size: 12px;
+            font-family: 'poppins';
+        }
+
+        .btn{
+            font-size: 12px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -19,7 +30,7 @@
     <h4 class="pt-5 text-uppercase fw-bold">POPULAR Apps</h4>
     <hr>
     <div class="row">
-        {% for app in most_popular_apps %}
+        {% for app in most_popular_apps|slice:'0:10' %}
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
             <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
                 <img src="{{app.app_image.url}}" alt="app-img" width="100%">
@@ -32,68 +43,13 @@
     </div>
 </div>
 
-<!-- MOST LIKED APPS -->
-<div class="container pb-3">
-    <h4 class="pt-5 text-uppercase fw-bold">Most Liked Apps</h4>
-    <hr>
-    <div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-            <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
-                <img src="https://www.w3schools.com/css/rock600x400.jpg" alt="app-img" width="100%">
-                <p class="pt-1 fw-bold p-0 m-0">APP NAME</p>
-                <p class="small mb-0">Likes : 000</p>
-                <a href="#" class="btn btn-outline-light w-100 p-1 mt-1">Explore</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- RECENT APPS -->
 <div class="container pb-3">
     <h4 class="pt-5 text-uppercase fw-bold">Recent Apps</h4>
     <hr>
     <div class="row">
-        {% for app in most_recent_apps %}
+        {% for app in most_recent_apps|slice:'0:10' %}
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 ">
             <div class="app-box mt-md-3 mt-1 p-1 text-center text-white bg-black img-thumbnail">
                 <img src="{{app.app_image.url}}" alt="app-img" width="100%">

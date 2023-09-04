@@ -18,5 +18,6 @@ urlpatterns = [
     path("uploadapp/<int:id>", views.upload_app_to_store, name='uploadapp'),
 
     path("deletecomment/<int:appid>/<int:id>", views.delete_comment, name='deletecomment'),
-
+    path("likeapp/<int:id>", views.like_app, name='likeapp'),
+    path("unlikeapp/<int:id>", views.unlike_app, name='unlikeapp'),
 ]

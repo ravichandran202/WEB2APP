@@ -47,13 +47,5 @@ class Comments(BasicInfo):
     
     def __str__(self):
         return str(self.user) + " " + str(self.app)
-    
-class Reviews(BasicInfo):
-    user =  models.ForeignKey(User,on_delete=models.CASCADE)
-    app = models.ForeignKey(AppDetails,on_delete=models.CASCADE)
-    value = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return str(self.user) + " " + str(self.app) +" "+ str(self.value)
-    
+
     

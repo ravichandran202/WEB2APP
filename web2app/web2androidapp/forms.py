@@ -10,6 +10,7 @@ class AppDetailsForm(forms.ModelForm):
 class UserBasicInfoForm(forms.ModelForm):
     class Meta:
         model = UserBasicInfo
+        fields = ['profile_image','first_name','last_name','phone','position','website','about']
         exclude = ['user','created_at','updated_at']
         widgets = {
             "email": forms.TextInput(attrs={'class':'form-control'}),
@@ -18,5 +19,5 @@ class UserBasicInfoForm(forms.ModelForm):
             "phone": forms.TextInput(attrs={'class':'form-control'}),
             "position": forms.TextInput(attrs={'class':'form-control'}),
             "website": forms.TextInput(attrs={'class':'form-control'}),
-            "about": forms.TextInput(attrs={'class':'form-control'}),
+            "about": forms.Textarea(attrs={'class':'form-control','rows':'3'}),
                    }

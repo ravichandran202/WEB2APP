@@ -21,7 +21,6 @@
         margin-bottom: 2rem;
     }
 
-
     input {
         margin-bottom: .5rem;
     }
@@ -36,6 +35,10 @@
         .form-box {
             width: 90%;
         }
+
+        body,input,textarea,button,a{
+        font-size: 14px !important;
+    }
     }
 </style>
 {% endblock %}
@@ -69,7 +72,7 @@
                     <label for="img-field" class="form-label fw-bold">App Icon :</label>
                     <input type="file" name="image" id="img-field" class="form-control" onchange="loadFile(event)"
                         required>
-                    <button type="submit" class="btn btn-dark py-md-3 w-100" onclick="loader()">Convert To App<span
+                    <button type="submit" class="btn btn-dark py-md-3 w-100" onclick="loader()" id="submit-btn">Convert To App<span
                             id="loader"></span></button>
                 </form>
             </div>
@@ -87,7 +90,6 @@
 
     function loader() {
         loadEl = document.getElementById('loader')
-
         inputEl = document.querySelectorAll('input')
 
         for (var i = 1; i < inputEl.length; i++) {
@@ -102,6 +104,8 @@
             }
         }
     }
+
+
 </script>
 
 {% endblock content %}
