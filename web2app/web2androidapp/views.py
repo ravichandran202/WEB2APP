@@ -263,3 +263,6 @@ def like_app(request,id):
 def unlike_app(request,id):
     Likes.objects.get(user=request.user, app=AppDetails.objects.get(id=id)).delete()
     return redirect('apppage', id)
+
+def plans(request):
+    return render(request,'plans.html')

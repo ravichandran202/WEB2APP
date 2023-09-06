@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title_content %}
+<title>WEB2APP - Plans</title>
+{% endblock %}
+
+{% block style_content %}
+<style>
+    .container {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box {
+        margin: auto;
+    }
+
+    .price{
+        font-size: 5rem;
+    }
+
+    li{
+        padding-top: .5rem;
+        list-style-type: disc;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="my-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <h3 class="fw-bolder">EXPLORE PLANS</h3>
+                    <p>Choose a below plans and get <strong>unimited app generation</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center fw-bold">
+                    <p>MOST POPULAR</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="box text-center img-thumbnail p-2 pt-4 mt-2">
+                    <div class="box-header">
+                        <h4>Free</h4>
+                        <p class="price">₹00</p>
+                        <p><strong>Upto 5</strong> App generation/downloads</p>
+                    </div>
+                    <div class="box-body text-start">
+                        <ul>
+                            <li>Limited Access</li>
+                            <li>5 WEB2APP Convertions</li>
+                            <li>Limited Downloads</li>
+                            <li>Limited Download Speed</li>
+                            <li>No 24/7 Helpline</li>
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="" class="btn btn-dark w-100">Activated</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="box text-center img-thumbnail p-2 pt-4 mt-2">
+                    <div class="box-header">
+                        <h4>Premium</h4>
+                        <p class="price">₹100</p>
+                        <p><strong>Upto 5</strong> App generation/downloads</p>
+                    </div>
+                    <div class="box-body text-start">
+                        <ul>
+                            <li>Unlimited Access</li>
+                            <li>Unlimited WEB2APP Convertions</li>
+                            <li>Unlimited Downloads</li>
+                            <li>High Speed Download</li>
+                            <li>24/7 Helpline</li>
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="" class="btn btn-dark w-100">Buy Premium</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
