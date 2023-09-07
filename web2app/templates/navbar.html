@@ -22,6 +22,9 @@
                         </li>
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'plans'%}">Plans</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'profile' request.user.id %}">Profile</a>
                         </li>
                         {% endif %}

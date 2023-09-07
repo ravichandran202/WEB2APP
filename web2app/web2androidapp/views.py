@@ -17,23 +17,26 @@ from .forms import AppDetailsForm,UserBasicInfoForm
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
 def web2app_converter(app_name, url):
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'AITextApp/app/src/main/java/com/example/aitextapp', 'MainActivity.java')
-    content_file_path = os.path.join(os.path.dirname(__file__), 'content.txt')
-    zip_folder_path = os.path.join(os.path.dirname(__file__), 'AITextApp')
-    android_code_file = open(file_path, 'w')
-    get_code_file = open(content_file_path, 'r')
-    url = 'webView.loadUrl("' + url + '");}} '
-    final_code = get_code_file.read()+url
-    android_code_file.write(final_code)
-    android_code_file.close()
-    
-    #remove all the zip files from dir
-    for file_path in os.listdir('media/downloads/'):
-        os.remove(f'media/downloads/{file_path}')
-    
-    #create a zip file
-    shutil.make_archive(f'media/downloads/{app_name}', 'zip', zip_folder_path)
+    try:
+        file_path = os.path.join(os.path.dirname(
+            __file__), 'AITextApp/app/src/main/java/com/example/aitextapp', 'MainActivity.java')
+        content_file_path = os.path.join(os.path.dirname(__file__), 'content.txt')
+        zip_folder_path = os.path.join(os.path.dirname(__file__), 'AITextApp')
+        android_code_file = open(file_path, 'w')
+        get_code_file = open(content_file_path, 'r')
+        url = 'webView.loadUrl("' + url + '");}} '
+        final_code = get_code_file.read()+url
+        android_code_file.write(final_code)
+        android_code_file.close()
+        
+        #remove all the zip files from dir
+        for file_path in os.listdir('media/downloads/'):
+            os.remove(f'media/downloads/{file_path}')
+        
+        #create a zip file
+        shutil.make_archive(f'media/downloads/{app_name}', 'zip', zip_folder_path)
+    except:
+        pass
 
 def account_created_html_email(user):
     subject = 'welcome to Web2App world'
@@ -178,11 +181,12 @@ def upload(request):
         AppDetails(user=request.user, app_name=app_title,
                    url=url, app_image=image).save()
         
-
         all_apps = AppDetails.objects.all()
         created_app = all_apps[len(all_apps)-1]
         return redirect('download', created_app.id)
-    return render(request, 'upload.html')
+    return render(request, 'upload.html',{
+        'user_info' : UserBasicInfo.objects.get(user=request.user)
+    })
 
 @login_required(login_url='login')
 def delete_app(request,id):
@@ -222,7 +226,7 @@ def app_page(request, id):
         'comments' : Comments.objects.filter(app = app).order_by('-created_at'),
         'most_recent_apps': AppDetails.objects.filter(is_upload = True).order_by('-created_at'),
         'is_user_liked' : is_user_liked,
-        'total_likes' : Likes.objects.filter(app=app)
+        'total_likes' : Likes.objects.filter(app=app),
     })
     
 def edit_app(request, id):
@@ -239,11 +243,17 @@ def edit_app(request, id):
 @login_required(login_url='login')
 def download(request, id):
     app = AppDetails.objects.get(id=id)
-    app.total_downloads += 1
-    app.save()
+    user_info = UserBasicInfo.objects.get(user=request.user)
+    if user_info.is_paid == False and user_info.convert_limit > 0:
+        user_info.convert_limit = user_info.convert_limit - 1
+        user_info.save()
+    
+        app.total_downloads += 1
+        app.save()
     web2app_converter(app.app_name, app.url)
     return render(request, 'download.html', {
         'app': app,
+        'user_info' : user_info
     })
 
 @login_required(login_url='login')
@@ -264,5 +274,17 @@ def unlike_app(request,id):
     Likes.objects.get(user=request.user, app=AppDetails.objects.get(id=id)).delete()
     return redirect('apppage', id)
 
+@login_required(login_url='login')
 def plans(request):
-    return render(request,'plans.html')
+    return render(request,'plans.html',{
+        'user_info' : UserBasicInfo.objects.get(user=request.user)
+    })
+    
+@login_required(login_url='login')
+def payment(request):
+    user_info = UserBasicInfo.objects.get(user=request.user)
+    user_info.is_paid = True
+    user_info.save()
+    return render(request,'payment.html',{
+        'user_info' : user_info
+    })

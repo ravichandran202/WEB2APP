@@ -22,4 +22,5 @@ urlpatterns = [
     path("unlikeapp/<int:id>", views.unlike_app, name='unlikeapp'),
     
     path("plans", views.plans, name='plans'),
+    path("payment", views.payment, name='payment'),
 ]

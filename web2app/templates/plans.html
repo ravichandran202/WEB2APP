@@ -18,10 +18,10 @@
     }
 
     .price{
-        font-size: 5rem;
+        font-size: 4rem;
     }
 
-    li{
+    .box li{
         padding-top: .5rem;
         list-style-type: disc;
     }
@@ -71,7 +71,7 @@
                     <div class="box-header">
                         <h4>Premium</h4>
                         <p class="price">₹100</p>
-                        <p><strong>Upto 5</strong> App generation/downloads</p>
+                        <p><strong>Unlimited</strong> App generation/downloads</p>
                     </div>
                     <div class="box-body text-start">
                         <ul>
@@ -83,7 +83,11 @@
                         </ul>
                     </div>
                     <div class="box-footer">
-                        <a href="" class="btn btn-dark w-100">Buy Premium</a>
+                        {% if user_info.is_paid %}
+                        <a href="#" class="btn btn-dark w-100">Activated</a>
+                        {% else %}
+                        <a href="https://rzp.io/l/w727MN4CFF" class="btn btn-dark w-100">Buy Premium</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

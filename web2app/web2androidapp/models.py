@@ -18,6 +18,8 @@ class UserBasicInfo(BasicInfo):
     position = models.CharField(max_length=100,blank=True,null=True)
     about = models.CharField(max_length=10000,blank=True,null=True)
     website = models.URLField(blank=True,null=True)
+    is_paid = models.BooleanField(default=False)
+    convert_limit = models.IntegerField(default=6)
     
     def __str__(self):
         return str(self.first_name) + str(self.last_name)

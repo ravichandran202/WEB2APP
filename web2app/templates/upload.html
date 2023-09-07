@@ -36,9 +36,13 @@
             width: 90%;
         }
 
-        body,input,textarea,button,a{
-        font-size: 14px !important;
-    }
+        body,
+        input,
+        textarea,
+        button,
+        a {
+            font-size: 14px !important;
+        }
     }
 </style>
 {% endblock %}
@@ -62,7 +66,7 @@
                         </ul>
                     </div>
                     {% endif %}
-                    
+
                     <label for="title-field" class="form-label fw-bold">App Title :</label>
                     <input type="text" class="form-control p-2" name="title-field" id="title-field"
                         placeholder="Web2App" required>
@@ -72,8 +76,14 @@
                     <label for="img-field" class="form-label fw-bold">App Icon :</label>
                     <input type="file" name="image" id="img-field" class="form-control" onchange="loadFile(event)"
                         required>
-                    <button type="submit" class="btn btn-dark py-md-3 w-100" onclick="loader()" id="submit-btn">Convert To App<span
-                            id="loader"></span></button>
+
+                    {% if user_info.is_paid == True or user_info.convert_limit > 0 %}
+                    <button type="submit" class="btn btn-dark py-md-3 w-100" onclick="loader()" id="submit-btn" >Convert
+                        To App<span id="loader"></span></button>
+                    {% else %}
+                    <a href="{% url 'plans' %}" class="btn btn-dark py-md-3 w-100" disabled>Activate Plan<span id="loader"></span></a>
+                        <p class="text-danger text-center fw-bold">Limit Exceeds!... Please Buy a Plan</p>
+                    {% endif %}
                 </form>
             </div>
         </div>
