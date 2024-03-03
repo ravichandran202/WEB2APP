@@ -14,7 +14,8 @@ import os
 
 from .models import UserBasicInfo,AppDetails,Likes,Comments
 from .forms import AppDetailsForm,UserBasicInfoForm
-# BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 #Major code t convert WEB 2 APP
 def web2app_converter(app_name, url):
